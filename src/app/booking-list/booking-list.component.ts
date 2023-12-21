@@ -17,17 +17,27 @@ export class BookingListComponent {
   bookingData: Booking[] = [
     { id: 1, customerName: "Sam", checkInDate: "01-01-2024", checkoutDate: "10-01-2024", "location": "Delhi" },
     { id: 2, customerName: "Mike", checkInDate: "01-01-2024", checkoutDate: "10-01-2024", "location": "Shimla" },
+    { id: 3, customerName: "John", checkInDate: "01-01-2024", checkoutDate: "10-01-2024", "location": "Shimla" },
+    { id: 4, customerName: "David", checkInDate: "01-01-2024", checkoutDate: "10-01-2024", "location": "Shimla" },
+    { id: 5, customerName: "Smith", checkInDate: "01-01-2024", checkoutDate: "10-01-2024", "location": "Shimla" },
+
   ]
 
-  @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private dialog: MatDialog) {
-
+    this.dataSource = new MatTableDataSource(this.bookingData);
+    
   }
 
   ngOnInit() {
-    this.dataSource = new MatTableDataSource(this.bookingData);
+    
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   openDialog(actionName: string, index: number) {
@@ -49,15 +59,29 @@ export class BookingListComponent {
       }else if(result && actionName == 'Edit'){
         this.bookingData[index] = result;
       }
-      this.dataSource = new MatTableDataSource(this.bookingData);
+      this.updateDataSource();
     });
+  }
+
+  updateDataSource(){
+    this.dataSource = new MatTableDataSource(this.bookingData);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   delete(index:number){
     this.bookingData.splice(index,1);
-    this.dataSource = new MatTableDataSource(this.bookingData);
+    this.updateDataSource();
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
  
 }
 

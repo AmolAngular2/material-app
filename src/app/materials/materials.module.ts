@@ -14,12 +14,13 @@ import { MatSelectModule } from '@angular/material/select';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatSortModule} from '@angular/material/sort';
 
 
 const materialModules:any  = [
   MatButtonModule,MatToolbarModule,MatIconModule,MatSidenavModule,MatListModule,
   MatTableModule,MatPaginatorModule,MatFormFieldModule,MatInputModule,MatDatepickerModule, MatSelectModule,MatAutocompleteModule
-,    MatNativeDateModule,MatDialogModule
+,    MatNativeDateModule,MatDialogModule,MatSortModule
 
 ]
 @NgModule({
