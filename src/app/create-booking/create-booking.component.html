@@ -1,0 +1,43 @@
+<div class="home-container">
+    <form [formGroup]="bookingForm" (ngSubmit)="createBooking()">
+        <div class="form-field">
+            <mat-form-field class="example-full-width">
+                <mat-label>Customer Name</mat-label>
+                <input matInput formControlName="customerName">
+            </mat-form-field>
+        </div>
+        <div class="form-field">
+            <mat-form-field class="example-full-width">
+                <mat-label>CheckIn Date</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="checkInDate">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="form-field">
+            <mat-form-field class="example-full-width">
+                <mat-label>Checkout Date</mat-label>
+                <input matInput [matDatepicker]="picker2" formControlName="checkoutDate">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="form-field">
+            <mat-form-field class="example-full-width">
+                <mat-label>Number</mat-label>
+                <input type="text" placeholder="Pick one" aria-label="Number" matInput formControlName="location"
+                    [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                        {{option}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </div>
+        <div class="example-button-row">
+          <button type="submit" mat-raised-button color="primary">Create Booking</button>
+         </div> 
+    </form>
+</div>
